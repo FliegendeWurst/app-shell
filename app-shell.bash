@@ -122,7 +122,7 @@ if [ -n "${nixpkgs-}" ]; then
 fi
 
 if [ -n "${apps-}" ]; then
-  cmd+=" --argstr apps $apps"
+  cmd+=" --argstr apps '$apps'"
 fi
 
 if [ -n "${python_packages-}" ]; then
