@@ -68,6 +68,8 @@ die() {
   exit "$code"
 }
 
+command=zsh
+
 parse_params() {
   while :; do
     case "${1-}" in
