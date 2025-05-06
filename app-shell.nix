@@ -8,6 +8,7 @@
 { nixpkgs ? "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz"
 , apps ? null
 , pythonPackages ? null
+, haskell ? null
 , libs ? null
 , includeLibs ? null
 , command ? null
@@ -41,11 +42,14 @@ let
     makeSearchPathOutput "dev" "lib/pkgconfig" packages;
 
   appsList =
-    if apps != null then
+    (if apps != null then
       map (x: stringToPackage x) (splitString "," apps)
-    else [ ];
+    else [ ])
+    ++ (if haskell != null then
+      [ (pkgs.haskellPackages.ghcWithPackages (pkgs: (map (x: pkgs."${x}") (splitString "," haskell)))) ]
+    else []);
   appsPath =
-    if apps != null then
+    if appsList != [ ] then
       "export PATH=${makeBinPath appsList}:$PATH"
     else
       "";

@@ -87,6 +87,10 @@ parse_params() {
       python_packages="${2-}"
       shift
       ;;
+    --haskell)
+      haskell="${2-}"
+      shift
+      ;;
     -l| --libs)
       libs="${2-}"
       shift
@@ -127,6 +131,10 @@ fi
 
 if [ -n "${python_packages-}" ]; then
   cmd+=" --argstr pythonPackages $python_packages"
+fi
+
+if [ -n "${haskell-}" ]; then
+  cmd+=" --argstr haskell $haskell"
 fi
 
 if [ -n "${libs-}" ]; then
